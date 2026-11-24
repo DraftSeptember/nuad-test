@@ -1,0 +1,362 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta charset="utf-8">
+<title>NUAD Physio Review</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a step-by-step check sheet. One short list per screen, a fixed bottom bar with progress and one big "next" action. */
+:root {
+  --bg: #f3f6f5; --panel: #ffffff; --ink: #18211f; --muted: #5b6965; --line: #d9e2df; --soft: #e9efed;
+  --accent: #0d6e62; --accent-ink: #ffffff; --accent-soft: #dcefeb;
+  --ok: #1f7a3d; --ok-soft: #e0f2e6; --chg: #a35c00; --chg-soft: #fdf0dc; --bad: #b42318; --bad-soft: #fde7e5;
+  --body: 'IBM Plex Sans Thai', 'Leelawadee UI', Tahoma, system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #111816; --panel: #19221f; --ink: #e5ece9; --muted: #9aaba6; --line: #2c3935; --soft: #212c29;
+  --accent: #4cc2ae; --accent-ink: #08201b; --accent-soft: #1d3a34;
+  --ok: #6fd18f; --ok-soft: #173323; --chg: #f0b45c; --chg-soft: #3a2a12; --bad: #ff8a7e; --bad-soft: #3d1a17; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #111816; --panel: #19221f; --ink: #e5ece9; --muted: #9aaba6; --line: #2c3935; --soft: #212c29;
+  --accent: #4cc2ae; --accent-ink: #08201b; --accent-soft: #1d3a34;
+  --ok: #6fd18f; --ok-soft: #173323; --chg: #f0b45c; --chg-soft: #3a2a12; --bad: #ff8a7e; --bad-soft: #3d1a17; color-scheme: dark; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--ink); font: 16px/1.55 var(--body); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--panel); }
+button, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; line-height: 1.3; }
+p { margin: 0; }
+
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--panel); border-bottom: 1px solid var(--line);
+  padding-block: 8px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.top-in { max-width: 760px; margin: 0 auto; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.brand { font-weight: 700; }
+.grow { flex: 1; }
+.steps { display: flex; gap: 4px; flex-wrap: wrap; }
+.step { border: 0; background: var(--soft); color: var(--muted); border-radius: 999px; padding: 4px 12px; font-size: 13px; }
+.step[aria-current="true"] { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.step.done { background: var(--ok-soft); color: var(--ok); }
+.lang { border: 1px solid var(--line); background: transparent; border-radius: 999px; padding: 4px 10px; font-size: 13px; }
+
+.wrap { max-width: 760px; margin: 0 auto; display: grid; gap: 14px;
+  padding-block: 18px 130px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 12px; }
+.lead { font-size: 15px; color: var(--muted); }
+.how { display: grid; gap: 10px; }
+.how div { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 10px; align-items: start; }
+.how b.n { width: 32px; height: 32px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-weight: 700; }
+.field { display: grid; gap: 6px; }
+.field label { font-size: 14px; font-weight: 600; }
+.field input, .field textarea { border: 1px solid var(--line); background: var(--bg); border-radius: 10px; padding: 12px; width: 100%; }
+.btn { border: 1px solid var(--line); background: var(--panel); border-radius: 12px; padding: 12px 18px; font-weight: 600; min-height: 48px; }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.big { width: 100%; font-size: 17px; }
+.note-sm { font-size: 13px; color: var(--muted); }
+.en { color: var(--muted); }
+[data-lang="th"] .en-only { display: none; }
+
+.page-h { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.page-h h2 { font-size: 20px; }
+.tip { background: var(--accent-soft); border-radius: 12px; padding: 12px 14px; font-size: 15px; }
+
+.group-h { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--accent); padding: 6px 2px 0; }
+.rows { display: grid; gap: 8px; }
+.row { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.row[data-v="ok"] { border-color: var(--ok); background: color-mix(in srgb, var(--ok-soft) 50%, var(--panel)); }
+.row[data-v="change"] { border-color: var(--chg); }
+.row-main { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 12px 12px 12px 16px; }
+.term-th { font-size: 18px; font-weight: 600; }
+.term-en { font-size: 14px; color: var(--muted); }
+.acts { display: flex; gap: 8px; }
+.act { width: 52px; height: 48px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--panel); font-size: 20px; font-weight: 700; display: grid; place-items: center; }
+.act.ok[aria-pressed="true"] { background: var(--ok); border-color: var(--ok); color: var(--panel); }
+.act.chg[aria-pressed="true"] { background: var(--chg); border-color: var(--chg); color: var(--panel); }
+.more-btn { border: 0; background: transparent; color: var(--accent); font-size: 13px; padding: 0 16px 10px; text-align: left; }
+.fix { display: grid; gap: 8px; padding: 0 16px 14px; }
+.fix textarea { min-height: 60px; resize: vertical; border: 1px solid var(--chg); border-radius: 10px; padding: 10px; background: var(--panel); }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; font-size: 13px; color: var(--muted); }
+.chip { border: 1px solid var(--line); background: transparent; border-radius: 999px; padding: 6px 12px; font-size: 13px; min-height: 36px; }
+.chip[aria-pressed="true"] { background: var(--chg-soft); border-color: var(--chg); color: var(--chg); font-weight: 600; }
+.details { padding: 0 16px 14px; display: grid; gap: 8px; font-size: 14px; }
+.details .d { display: grid; gap: 2px; padding-top: 8px; border-top: 1px solid var(--soft); }
+.details .d b { font-size: 12.5px; color: var(--muted); }
+.shot img { width: 100%; max-width: 360px; border-radius: 10px; border: 1px solid var(--line); }
+
+.secs { display: grid; gap: 8px; }
+.sec { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: center; text-align: left; border: 1px solid var(--line); background: var(--panel); border-radius: 12px; padding: 14px 16px; min-height: 56px; }
+.sec b { display: block; }
+.sec span { font-size: 13px; color: var(--muted); }
+.count { font-variant-numeric: tabular-nums; font-size: 14px; color: var(--muted); }
+
+.bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; background: var(--panel); border-top: 1px solid var(--line);
+  padding-block: 10px calc(10px + env(safe-area-inset-bottom, 0px)); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.bar-in { max-width: 760px; margin: 0 auto; display: grid; gap: 8px; }
+.prog { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.track { flex: 1; height: 8px; border-radius: 4px; background: var(--soft); overflow: hidden; display: flex; }
+.track i { display: block; height: 100%; }
+.bar-btns { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px; }
+
+.summary { width: 100%; min-height: 200px; font: 13px/1.5 var(--mono); border: 1px solid var(--line); border-radius: 10px; padding: 10px; background: var(--bg); }
+.counts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.counts div { border-radius: 12px; padding: 10px 12px; background: var(--soft); font-size: 13px; }
+.counts b { display: block; font-size: 24px; font-variant-numeric: tabular-nums; }
+.counts .c-ok { background: var(--ok-soft); color: var(--ok); } .counts .c-chg { background: var(--chg-soft); color: var(--chg); }
+.status { font-size: 14px; color: var(--ok); }
+@media (max-width: 480px) { .term-th { font-size: 17px; } .act { width: 48px; } }
+@media (prefers-reduced-motion: no-preference) { .row { transition: border-color .15s, background .15s; } }
+</style>
+
+<header class="top"><div class="top-in">
+  <div class="brand">NUAD</div>
+  <nav class="steps" id="steps" aria-label="Steps"></nav>
+  <div class="grow"></div>
+  <button class="lang" id="lang" type="button">EN</button>
+</div></header>
+<main class="wrap" id="main" data-lang="th"><div class="card">กำลังโหลด… Loading…</div></main>
+<div class="bar" id="bar" hidden><div class="bar-in" id="bar-in"></div></div>
+
+<script src="review-data.js"></script>
+<script>
+(() => {
+  const R = window.REVIEW || { sections: [] };
+  const SECS = R.sections;
+  const TERM_SECS = ['muscles', 'bones', 'ligaments', 'movements', 'techniques'];
+  const TERMS = SECS.filter((s) => TERM_SECS.includes(s.id)).flatMap((s) => s.items.map((it) => ({ it, s })));
+  const MORE = SECS.filter((s) => !TERM_SECS.includes(s.id));
+  const PER = 15;
+  const KEY = 'nuad-physio-review-v1';
+  let state = { name: '', lang: 'th', general: '', v: {} };
+  try { Object.assign(state, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) {}
+  if (state.lang !== 'en') state.lang = 'th';
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} queueRemote(); };
+
+  const $ = (s) => document.querySelector(s);
+  const h = (tag, attrs = {}, ...kids) => {
+    const el = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) { if (v == null || v === false) continue; if (k === 'class') el.className = v; else if (k === 'text') el.textContent = v; else if (k.startsWith('on')) el.addEventListener(k.slice(2), v); else el.setAttribute(k, v === true ? '' : v); }
+    for (const c of kids.flat()) if (c != null && c !== false) el.append(c.nodeType ? c : document.createTextNode(c));
+    return el;
+  };
+  const T = (th, en) => (state.lang === 'en' ? en : th);
+  const WHY = [['thai', 'คำแปล/ศัพท์ไทย', 'Thai wording'], ['content', 'เนื้อหา', 'Content'], ['safety', 'ความปลอดภัย', 'Safety']];
+  const WHY_EN = { thai: 'Thai wording', content: 'Content', safety: 'Safety' };
+  const mark = (key) => state.v[key]?.k;
+  const tally = (list) => { const c = { n: list.length, ok: 0, change: 0, done: 0 }; for (const x of list) { const k = mark(x.it ? x.it.key : x.key); if (k === 'ok' || k === 'change') { c[k]++; c.done++; } } return c; };
+
+  // ---- routing: start · terms (page n) · more · more-<section> (page n) · send ----
+  let view = 'start', page = 0, moreSec = null;
+  const go = (v, p = 0) => { view = v; page = p; try { history.replaceState(null, '', '#' + (v === 'more-sec' ? 'more-' + moreSec : v)); } catch (e) {} render(); window.scrollTo(0, 0); };
+
+  function stepsNav() {
+    const termsDone = tally(TERMS).done === TERMS.length;
+    const S = [['start', T('1 เริ่ม', '1 Start')], ['terms', T('2 ตรวจคำศัพท์', '2 Terms')], ['more', T('3 เพิ่มเติม', '3 More')], ['send', T('4 ส่ง', '4 Send')]];
+    $('#steps').replaceChildren(...S.map(([id, t]) => h('button', { type: 'button', class: 'step' + (id === 'terms' && termsDone ? ' done' : ''), 'aria-current': String(view === id || (id === 'more' && view === 'more-sec')), onclick: () => go(id) }, t)));
+    $('#lang').textContent = state.lang === 'en' ? 'ไทย' : 'EN';
+  }
+
+  // ---- one row: term (Thai big, English under), ✓ and ✎, details on tap ----
+  function row(it, opts = {}) {
+    const cur = state.v[it.key] || {};
+    const el = h('article', { class: 'row', 'data-v': cur.k || '' });
+    const name = it.fields.find((f) => f.term) || { en: it.title.en, th: it.title.th };
+    const okB = h('button', { type: 'button', class: 'act ok', 'aria-pressed': String(cur.k === 'ok'), 'aria-label': T('ถูกต้อง', 'Correct'), title: T('ถูกต้อง', 'Correct') }, '✓');
+    const chB = h('button', { type: 'button', class: 'act chg', 'aria-pressed': String(cur.k === 'change'), 'aria-label': T('ควรแก้', 'Needs change'), title: T('ควรแก้', 'Needs change') }, '✎');
+    const ta = h('textarea', { id: 'fix-' + it.key, placeholder: T('คำที่ถูกต้อง หรือสิ่งที่ควรแก้', 'The correct term, or what to change') });
+    ta.value = cur.note || '';
+    ta.addEventListener('input', () => { (state.v[it.key] ||= {}).note = ta.value; save(); });
+    const chips = WHY.map(([w, th, en]) => h('button', { type: 'button', class: 'chip', 'data-w': w, 'aria-pressed': String((cur.why || (opts.term ? ['thai'] : [])).includes(w)) }, T(th, en)));
+    chips.forEach((c) => c.addEventListener('click', () => {
+      const v = (state.v[it.key] ||= {}); const s = new Set(v.why || (opts.term ? ['thai'] : [])); s.has(c.dataset.w) ? s.delete(c.dataset.w) : s.add(c.dataset.w); v.why = [...s];
+      chips.forEach((x) => x.setAttribute('aria-pressed', String(v.why.includes(x.dataset.w)))); save();
+    }));
+    const fix = h('div', { class: 'fix', hidden: cur.k !== 'change' }, h('label', { class: 'note-sm', for: 'fix-' + it.key, text: T('ควรเป็นอย่างไร', 'What it should be') }), ta, h('div', { class: 'chips' }, T('แก้เรื่อง:', 'Fix:'), ...chips));
+    const set = (k) => {
+      const v = (state.v[it.key] ||= {});
+      v.k = v.k === k ? undefined : k;
+      if (v.k === 'change' && !v.why) v.why = opts.term ? ['thai'] : [];
+      if (!v.k && !v.note) delete state.v[it.key];
+      el.dataset.v = v.k || ''; okB.setAttribute('aria-pressed', String(v.k === 'ok')); chB.setAttribute('aria-pressed', String(v.k === 'change'));
+      fix.hidden = v.k !== 'change'; if (v.k === 'change') ta.focus();
+      save(); updateBar();
+    };
+    okB.addEventListener('click', () => set('ok'));
+    chB.addEventListener('click', () => set('change'));
+    const rest = it.fields.filter((f) => !f.term);
+    let details = null;
+    const moreBtn = rest.length || it.img ? h('button', { type: 'button', class: 'more-btn', 'aria-expanded': 'false' }, T('ดูรายละเอียด ▾', 'Details ▾')) : null;
+    moreBtn?.addEventListener('click', () => {
+      if (!details) {
+        details = h('div', { class: 'details' },
+          it.img ? h('div', { class: 'shot' }, h('img', { src: it.img, alt: it.title.en, loading: 'lazy' })) : null,
+          ...rest.map((f) => h('div', { class: 'd' }, h('b', { text: T(f.label[1] || f.label[0], f.label[0]) }), f.th && state.lang === 'th' ? h('span', { text: f.th }) : null, h('span', { class: state.lang === 'th' ? 'en' : '', text: f.en }))));
+        moreBtn.after(details); moreBtn.setAttribute('aria-expanded', 'true'); moreBtn.textContent = T('ซ่อนรายละเอียด ▴', 'Hide details ▴');
+      } else { details.hidden = !details.hidden; moreBtn.setAttribute('aria-expanded', String(!details.hidden)); moreBtn.textContent = details.hidden ? T('ดูรายละเอียด ▾', 'Details ▾') : T('ซ่อนรายละเอียด ▴', 'Hide details ▴'); }
+    });
+    el.append(
+      h('div', { class: 'row-main' },
+        h('div', {}, h('div', { class: 'term-th', text: (state.lang === 'en' ? name.en : name.th) || name.en }), h('div', { class: 'term-en', text: state.lang === 'en' ? name.th : name.en })),
+        h('div', { class: 'acts' }, okB, chB)),
+      moreBtn, fix);
+    return el;
+  }
+
+  // ---- screens ----
+  function startView() {
+    const name = h('input', { id: 'rev-name', value: state.name, placeholder: T('ชื่อของคุณ', 'Your name'), autocomplete: 'name' });
+    name.addEventListener('input', () => { state.name = name.value; save(); });
+    const t = tally(TERMS);
+    return [h('section', { class: 'card' },
+      h('h1', { style: 'font-size:24px' }, T('ขอบคุณที่ช่วยตรวจ NUAD', 'Thank you for reviewing NUAD')),
+      h('p', { class: 'lead' }, T('NUAD เป็นแอปสอนนวด ยืดเหยียด และออกกำลังกาย บนร่างกาย 3 มิติ ภาษาไทยและอังกฤษ สิ่งที่อยากให้ช่วยมากที่สุดคือ ตรวจว่าคำศัพท์ภาษาไทยถูกต้อง', 'NUAD teaches massage, stretching and exercise on a 3D body, in Thai and English. Most of all, please check that the Thai terms are right.')),
+      h('div', { class: 'how' },
+        h('div', {}, h('b', { class: 'n', text: '1' }), h('p', {}, T('ดูคำภาษาไทยคู่กับภาษาอังกฤษ ทีละหน้า หน้าละ 15 คำ', 'Look at each Thai term next to its English, 15 per page.'))),
+        h('div', {}, h('b', { class: 'n', text: '2' }), h('p', {}, T('ถ้าคำไหนผิด กด ✎ แล้วพิมพ์คำที่ถูก ถ้าถูกหมดแล้ว กดปุ่มเขียวด้านล่างเพื่อไปหน้าถัดไป', 'If a term is wrong, tap ✎ and type the right one. When the rest are fine, tap the green button at the bottom.'))),
+        h('div', {}, h('b', { class: 'n', text: '3' }), h('p', {}, T('จบแล้วกด "คัดลอก" แล้ววางส่งทาง LINE', 'At the end, tap Copy and paste it into LINE.')))),
+      h('p', { class: 'note-sm' }, T(`มีคำศัพท์ ${TERMS.length} คำ ใช้เวลาประมาณ 20–30 นาที แบ่งทำหลายครั้งได้ ระบบบันทึกให้อัตโนมัติในเครื่องนี้`, `${TERMS.length} terms, about 20–30 minutes. You can stop any time; answers save on this device.`)),
+      h('a', { class: 'btn', href: '../', target: '_blank', rel: 'noopener', style: 'text-align:center;text-decoration:none;color:var(--accent)' }, T('เปิดแอป NUAD ตัวจริง (เปิดในแท็บใหม่) ↗', 'Open the NUAD app (new tab) ↗')),
+      h('p', { class: 'note-sm' }, T('ใช้คู่กันได้: เปิดแอปเพื่อดูภาพ 3 มิติและการสาธิต แล้วกลับมาตรวจคำศัพท์ที่หน้านี้ แนะนำให้ใช้คอมพิวเตอร์หรือแท็บเล็ต', 'Use both: open the app to see the 3D body and demos, then come back here to check the terms. A computer or tablet works best.')),
+      h('div', { class: 'field' }, h('label', { for: 'rev-name', text: T('ชื่อผู้ตรวจ', 'Your name') }), name),
+      h('button', { type: 'button', class: 'btn primary big', onclick: () => go('terms', Math.min(Math.floor(t.done / PER), Math.ceil(TERMS.length / PER) - 1)) }, t.done ? T(`ทำต่อ (${t.done}/${t.n})`, `Continue (${t.done}/${t.n})`) : T('เริ่มตรวจคำศัพท์', 'Start checking terms')))];
+  }
+
+  function listView(list, pages, title, tip, term) {
+    const slice = list.slice(page * PER, page * PER + PER);
+    const rows = h('div', { class: 'rows' });
+    let last = null;
+    for (const x of slice) {
+      const it = x.it || x, s = x.s;
+      if (s && s !== last) { rows.append(h('div', { class: 'group-h', text: T(s.title.th, s.title.en) })); last = s; }
+      rows.append(row(it, { term }));
+    }
+    return [h('div', { class: 'page-h' }, h('h2', { text: title }), h('span', { class: 'count', text: T(`หน้า ${page + 1}/${pages}`, `Page ${page + 1}/${pages}`) })),
+      page === 0 ? h('p', { class: 'tip', text: tip }) : null, rows];
+  }
+
+  function moreView() {
+    return [h('section', { class: 'card' },
+      h('h2', { style: 'font-size:20px' }, T('เนื้อหาเพิ่มเติม (ไม่บังคับ)', 'More content (optional)')),
+      h('p', { class: 'lead' }, T('ถ้ามีเวลา เลือกหมวดที่อยากดู ข้อความยาวกว่า ดูทีละข้อได้ ไม่ต้องทำครบ', 'If you have time, pick a section. These are longer texts; you do not need to finish them.')),
+      h('div', { class: 'secs' }, ...MORE.map((s) => { const c = tally(s.items);
+        return h('button', { type: 'button', class: 'sec', onclick: () => { moreSec = s.id; go('more-sec'); } }, h('div', {}, h('b', { text: T(s.title.th, s.title.en) }), h('span', { text: T(s.ask.th, s.ask.en) })), h('span', { class: 'count', text: `${c.done}/${c.n}` })); })),
+      h('button', { type: 'button', class: 'btn primary big', onclick: () => go('send') }, T('ข้าม ไปส่งผลการตรวจ →', 'Skip to sending →')))];
+  }
+
+  function summaryText() {
+    const all = [...TERMS.map((x) => x.it), ...MORE.flatMap((s) => s.items)];
+    const c = tally(all), lines = [];
+    lines.push(`NUAD physio review — ${state.name || '(no name)'} — ${new Date().toISOString().slice(0, 10)}`);
+    const tc = tally(TERMS);
+    lines.push(`Terms checked ${tc.done}/${tc.n} (OK ${tc.ok}, change ${tc.change}) · All items marked ${c.done}/${c.n}`);
+    for (const s of SECS) {
+      const flagged = s.items.filter((it) => { const v = state.v[it.key]; return v && (v.k === 'change' || (v.note && v.note.trim())); });
+      if (!flagged.length) continue;
+      lines.push('', `## ${s.title.en} / ${s.title.th}`);
+      for (const it of flagged) {
+        const v = state.v[it.key];
+        const tag = v.k === 'change' ? 'CHANGE' + ((v.why || []).length ? ': ' + v.why.map((w) => WHY_EN[w]).join(', ') : '') : 'NOTE';
+        lines.push(`[${tag}] ${it.title.en}${it.title.th ? ' / ' + it.title.th : ''}  {${it.key}}`);
+        if (v.note) lines.push('    ' + v.note.trim().replace(/\n/g, '\n    '));
+      }
+    }
+    if (state.general.trim()) lines.push('', '## General comments / ความเห็นทั่วไป', state.general.trim());
+    return lines.join('\n');
+  }
+  function sendView() {
+    const tc = tally(TERMS);
+    const out = h('textarea', { class: 'summary', id: 'summary', readonly: true, 'aria-label': 'Summary' });
+    out.value = summaryText();
+    const gen = h('textarea', { id: 'general', placeholder: T('สิ่งที่ขาดหรือข้อเสนอแนะอื่น ๆ (ไม่บังคับ)', 'Anything missing or other suggestions (optional)') });
+    gen.value = state.general;
+    gen.addEventListener('input', () => { state.general = gen.value; out.value = summaryText(); save(); });
+    const status = h('p', { class: 'status', role: 'status' });
+    const copy = h('button', { type: 'button', class: 'btn primary big' }, T('คัดลอกผลการตรวจ', 'Copy my review'));
+    copy.addEventListener('click', async () => {
+      out.value = summaryText();
+      try { await navigator.clipboard.writeText(out.value); status.textContent = T('คัดลอกแล้ว ✓ เปิด LINE แล้ววางส่งได้เลย', 'Copied ✓ Open LINE and paste it.'); }
+      catch (e) { out.focus(); out.select(); status.textContent = T('กดค้างที่ข้อความแล้วเลือก "คัดลอก"', 'Long-press the text and choose Copy.'); }
+    });
+    return [h('section', { class: 'card' },
+      h('h2', { style: 'font-size:20px' }, T('ส่งผลการตรวจ', 'Send your review')),
+      h('div', { class: 'counts' },
+        h('div', {}, h('b', { text: `${tc.done}/${tc.n}` }), T('คำที่ตรวจแล้ว', 'Terms checked')),
+        h('div', { class: 'c-ok' }, h('b', { text: tc.ok }), T('ถูกต้อง', 'Correct')),
+        h('div', { class: 'c-chg' }, h('b', { text: tally([...TERMS.map((x) => x.it), ...MORE.flatMap((s) => s.items)]).change }), T('ควรแก้', 'To change'))),
+      tc.done < tc.n ? h('p', { class: 'note-sm' }, T(`ยังเหลือ ${tc.n - tc.done} คำที่ยังไม่ได้ตรวจ ส่งได้เลย หรือกลับไปทำต่อทีหลังก็ได้`, `${tc.n - tc.done} terms not checked yet. You can send now or come back later.`)) : null,
+      h('div', { class: 'field' }, h('label', { for: 'general', text: T('ความเห็นทั่วไป', 'General comments') }), gen),
+      copy, status,
+      h('details', {}, h('summary', { class: 'note-sm', text: T('ดูข้อความที่จะส่ง', 'See the text that will be sent') }), out),
+      h('p', { class: 'note-sm', id: 'remote-status', text: remoteMsg }))];
+  }
+
+  // ---- bottom bar: progress + one big next action ----
+  function updateBar() {
+    const bar = $('#bar'), inn = $('#bar-in');
+    const list = view === 'terms' ? TERMS : view === 'more-sec' ? (SECS.find((s) => s.id === moreSec)?.items || []) : null;
+    if (!list) { bar.hidden = true; return; }
+    bar.hidden = false;
+    const pages = Math.max(1, Math.ceil(list.length / PER));
+    const c = tally(list);
+    const track = h('div', { class: 'track' }, h('i', { style: `width:${(c.ok / c.n) * 100}%;background:var(--ok)` }), h('i', { style: `width:${(c.change / c.n) * 100}%;background:var(--chg)` }));
+    const back = h('button', { type: 'button', class: 'btn', 'aria-label': T('ย้อนกลับ', 'Back') }, '←');
+    back.addEventListener('click', () => (page > 0 ? go(view, page - 1) : go(view === 'terms' ? 'start' : 'more')));
+    const lastPage = page >= pages - 1;
+    const next = h('button', { type: 'button', class: 'btn primary' }, lastPage
+      ? T('✓ ที่เหลือถูกต้อง · เสร็จ →', '✓ Rest correct · Done →')
+      : T('✓ ที่เหลือในหน้านี้ถูกต้อง · ถัดไป →', '✓ Rest of page correct · Next →'));
+    next.addEventListener('click', () => {
+      for (const x of list.slice(page * PER, page * PER + PER)) { const key = (x.it || x).key; if (!mark(key)) (state.v[key] ||= {}).k = 'ok'; }
+      save();
+      lastPage ? go(view === 'terms' ? 'more' : 'more') : go(view, page + 1);
+    });
+    inn.replaceChildren(h('div', { class: 'prog' }, h('span', { text: `${c.done}/${c.n}` }), track, h('span', { text: T(`หน้า ${page + 1}/${pages}`, `${page + 1}/${pages}`) })), h('div', { class: 'bar-btns' }, back, next));
+  }
+
+  function render() {
+    $('#main').dataset.lang = state.lang;
+    stepsNav();
+    let kids;
+    if (view === 'terms') kids = listView(TERMS, Math.ceil(TERMS.length / PER), T('ตรวจคำศัพท์', 'Check the terms'),
+      T('ดูว่าคำภาษาไทยตรงกับภาษาอังกฤษหรือไม่ ผิดกด ✎ แล้วพิมพ์คำที่ถูก ถ้าที่เหลือถูกหมด กดปุ่มเขียวด้านล่างได้เลย ไม่ต้องกด ✓ ทีละคำ', 'Is the Thai right for the English? If wrong, tap ✎ and type the right term. If the rest are fine, tap the green button below; no need to tick each one.'), true);
+    else if (view === 'more-sec') { const s = SECS.find((x) => x.id === moreSec); kids = s ? listView(s.items, Math.ceil(s.items.length / PER), T(s.title.th, s.title.en), T(s.ask.th, s.ask.en), false) : moreView(); }
+    else if (view === 'more') kids = moreView();
+    else if (view === 'send') kids = sendView();
+    else kids = startView();
+    $('#main').replaceChildren(...kids.filter(Boolean));
+    updateBar();
+  }
+  $('#lang').addEventListener('click', () => { state.lang = state.lang === 'en' ? 'th' : 'en'; save(); render(); });
+
+  // ---- also keep a copy with the developer, where this viewer is allowed to write ----
+  let db = null, me = null, remoteMsg = '', timer = null;
+  function queueRemote() { if (!db || !me) return; clearTimeout(timer); timer = setTimeout(pushRemote, 1500); }
+  async function pushRemote() {
+    try {
+      const v = {}; for (const [k, x] of Object.entries(state.v)) if (x.k || x.note) v[k] = { k: x.k || null, why: x.why || [], note: x.note || '' };
+      await db.doc('reviews/' + me).set({ name: state.name, general: state.general, v, at: new Date().toISOString() });
+      remoteMsg = T('บันทึกถึงผู้พัฒนาแล้วด้วย', 'Also saved for the developer.');
+    } catch (e) { remoteMsg = ''; db = null; }
+    const el = document.getElementById('remote-status'); if (el) el.textContent = remoteMsg;
+  }
+  (async () => {
+    try {
+      if (!window.claude?.use) return;
+      const [d, u] = await Promise.all([claude.use('db'), claude.use('user')]);
+      if (!d || !u) return;
+      me = await u.id(); if (!me) return;
+      if (u.can && u.can('data.write') === false) return;
+      db = d; queueRemote();
+    } catch (e) { db = null; }
+  })();
+
+  const h0 = location.hash.slice(1);
+  if (h0 === 'terms' || h0 === 'more' || h0 === 'send') view = h0;
+  else if (h0.startsWith('more-') && SECS.some((s) => s.id === h0.slice(5))) { view = 'more-sec'; moreSec = h0.slice(5); }
+  render();
+})();
+</script>
+
+</body></html>
