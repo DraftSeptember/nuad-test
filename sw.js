@@ -12,9 +12,9 @@
  * Messages from the page: { type: 'WARM' } caches the 3D data in the background and answers
  * { type: 'OFFLINE_READY', fresh } when done; { type: 'SKIP_WAITING' } activates a waiting update.
  */
-const VERSION = "c2aa8eaeb008";
+const VERSION = "c2c1098843b7";
 const DATA_VERSION = "ec2e5f5c9cd8";
-const PRECACHE = ["","assets/index-Ciowdvd9.css","assets/Explore-_BkaRUnb.css","assets/LogPanel-SgBKQsyA.css","assets/LearnPanel-B0Nj2c10.css","assets/react-CN0hfnDr.js","assets/three-UBZdpALH.js","assets/meshopt-BZim_zmU.js","assets/index-BiapK2fw.js","assets/Explore-CwZSWS6S.js","assets/Guide-uRiXEk8l.js","assets/safety-Cz5z1ygW.js","assets/QuickSearch-xShrs7jf.js","assets/rollers-BXzx_ExJ.js","assets/TodayPanel-KfZ9ZOc3.js","assets/LogPanel-CAWvzDWO.js","assets/LearnPanel-BjJf_2zS.js","assets/localize-djrrlzIw.js","assets/injuries-DY3Je8rv.js","assets/FeedbackPanel-DTJkaLan.js","assets/th-Duh066RT.js","manifest.webmanifest","icons/icon.svg","icons/icon-192.png","icons/icon-512.png","icons/apple-touch-icon.png"];
+const PRECACHE = ["","assets/index-Ciowdvd9.css","assets/Explore-_BkaRUnb.css","assets/LogPanel-SgBKQsyA.css","assets/LearnPanel-B0Nj2c10.css","assets/react-CN0hfnDr.js","assets/three-UBZdpALH.js","assets/meshopt-BZim_zmU.js","assets/index-PXUbaXem.js","assets/Explore-C2svsHUz.js","assets/Guide-D0pMkFBk.js","assets/safety-VDbNODgR.js","assets/QuickSearch-1XIVe3m4.js","assets/rollers-BXzx_ExJ.js","assets/TodayPanel-D-yFYDwR.js","assets/LogPanel-ok2tb0qB.js","assets/LearnPanel-j-kKR_WP.js","assets/localize-B8elElUR.js","assets/injuries-C0mqFigK.js","assets/FeedbackPanel-BkNGKoQg.js","assets/th-Duh066RT.js","manifest.webmanifest","icons/icon.svg","icons/icon-192.png","icons/icon-512.png","icons/apple-touch-icon.png"];
 // The 3D data the app needs to work offline.
 const DATA_WARM = ['anatomy/bp3d.json', 'anatomy/bp3d.meshopt.json', 'anatomy/bp3d.meshopt.bin', 'models/holds.glb'];
 
